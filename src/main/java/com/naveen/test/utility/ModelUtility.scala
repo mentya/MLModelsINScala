@@ -3,7 +3,11 @@ import org.apache.spark.sql.functions._
 import org.apache.spark.sql.DataFrame
 class ModelUtility {
   
-  def getPerformance(df: DataFrame):Map[String,Double]= {
+  /**
+ * @param df
+ * @return
+ */
+def getPerformance(df: DataFrame):Map[String,Double]= {
     
     var accuracy :Double= -0.1
     var recal :Double= -0.1
@@ -20,7 +24,7 @@ class ModelUtility {
     accuracy = (tp+tn)/(tp+tn+fp+fn)
     recal =tp/(tp+fn)
     precision=tp/(tp+fp)
-    f1score=(recal*precision)/(recal+precision)
+    f1score=2*((recal*precision)/(recal+precision))
     
    return Map("accuracy" -> accuracy,"recal"->recal,"precision"->precision,"f1score"->f1score)
 
